@@ -242,5 +242,11 @@
       { "key": "auto_complete_visible", "operator": "equal",          "operand": false,           "match_all": true },
       { "key": "preceding_text",        "operator": "regex_contains", "operand": "^\\s*\\*",      "match_all": true }
     ]
-  }
+  },
+
+  // Open live or local documentation
+  { "keys": ["super+alt+;"], "command": "jsdocs_open_live_docs" },
+  { "keys": ["super+alt+'"], "command": "jsdocs_open_live_docs_at_file" },
+  { "keys": ["super+alt+,"], "command": "jsdocs_open_local_docs" },
+  { "keys": ["super+alt+."], "command": "jsdocs_open_local_docs_at_file" }
 ]

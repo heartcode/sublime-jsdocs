@@ -1,0 +1,16 @@
+[{
+    "caption": "DocBlockr",
+    "children": [{
+        "caption": "Open live docs",
+        "command": "jsdocs_open_live_docs"
+    }, {
+        "caption": "Open live docs at this file",
+        "command": "jsdocs_open_live_docs_at_file"
+    }, {
+        "caption": "Open local docs",
+        "command": "jsdocs_open_local_docs"
+    }, {
+        "caption": "Open local docs at this file",
+        "command": "jsdocs_open_local_docs_at_file"
+    }]
+}]

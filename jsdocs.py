@@ -5,9 +5,11 @@ https://github.com/spadgos/sublime-jsdocs
 """
 import sublime
 import sublime_plugin
+import os.path
 import re
 import datetime
 import time
+import webbrowser
 from functools import reduce
 
 
@@ -1324,3 +1326,77 @@ class JsdocsWrapLines(sublime_plugin.TextCommand):
 
         text = escape(text)
         write(v, text)
+
+
+class JsdocsOpenLiveDocsCommand(sublime_plugin.TextCommand):
+
+    def run(self, edit):
+        open_with_params(self, False, 'live')
+
+
+class JsdocsOpenLiveDocsAtFileCommand(sublime_plugin.TextCommand):
+
+    def run(self, edit):
+        open_with_params(self, True, 'live')
+
+
+class JsdocsOpenLocalDocsCommand(sublime_plugin.TextCommand):
+
+    def run(self, edit):
+        open_with_params(self)
+
+
+class JsdocsOpenLocalDocsAtFileCommand(sublime_plugin.TextCommand):
+
+    def run(self, edit):
+        open_with_params(self, True)
+
+
+def open_with_params(self, file=False, env='local'):
+    settings = get_settings(self)
+    file_path = self.view.file_name()
+    extensions = ('.js', '.as', '.php', '.cc', '.cpp', 'py')
+
+    if (env != 'local' and env != 'live'):
+        env = 'local'
+    url = settings[env + '_url'] or settings['local_url']
+
+    if(env == 'local'):
+        url = "file://" + url
+
+    if (file and file_path):
+        extension = os.path.splitext(file_path)[1]
+        supported_extension = extensions.index(extension) if extension in extensions else -1
+        if(supported_extension >= 0):
+            file_name_starts = file_path.rindex('/') + 1
+            file_name_ends = file_path.rindex(extension)
+            file_name = file_path[file_name_starts:file_name_ends]
+            url += '/symbols/' + file_name + '.html'
+        else:
+            url += "/index.html"
+    else:
+        url += "/index.html"
+    webbrowser.open_new_tab(url)
+
+
+# Collect the settings from global default or user files
+# (or from project settings in Sublime 3 only)
+def get_settings(self):
+    settings = self.view.settings()
+    supports_project_data = hasattr(sublime.Window, 'project_data') and callable(getattr(sublime.Window, 'project_data'))
+
+    live_url = settings.get('jsdocs_live_docs_url')
+    local_url = settings.get('jsdocs_local_docs_url')
+
+    if(supports_project_data):
+        project_data = sublime.active_window().project_data()
+        if('settings' in project_data and 'jsdocs' in project_data['settings']):
+            if(project_data['settings']['jsdocs']['jsdocs_live_docs_url']):
+                live_url = project_data['settings']['jsdocs']['jsdocs_live_docs_url']
+            if(project_data['settings']['jsdocs']['jsdocs_local_docs_url']):
+                local_url = project_data['settings']['jsdocs']['jsdocs_local_docs_url']
+
+    return {
+        'live_url':   live_url,
+        'local_url':  local_url
+    }

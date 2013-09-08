@@ -25,3 +25,4 @@ Many thanks to all those who have sent bug reports and especially to those who s
 - Tiago Santos (@tmcsantos)
 - Timo Tijhof (@Krinkle)
 - wronex (@wronex)
+- Robert Pataki (@heartcode)

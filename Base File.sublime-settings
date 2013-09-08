@@ -103,5 +103,12 @@
 
   // This property affects the default tag added to `var` declarations in Javascript/Coffeescript. If `false`, the
   // default is used ("var"), otherwise it can be set to any String, eg: "property"
-  "jsdocs_override_js_var": false
+  "jsdocs_override_js_var": false,
+
+  // The absolute path to the local docs folder
+  // example: "/Users/rob/projects/project/docs/build"
+  "jsdocs_local_docs_url": "local_path_to_your_project_documentation_build_folder",
+  // The URL of the live documentation build folder
+  // example: "http://robertpataki.com/docs/build"
+  "jsdocs_live_docs_url": "remote_path_to_your_project_documentation_build_folder"
 }

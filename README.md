@@ -159,6 +159,27 @@ Inside a comment block, hit `Alt+Q` to wrap the lines to make them fit within yo
 
 Finally, typing `@` inside a docblock will show a completion list for all tags supported by [JSDoc][jsdoc], the [Google Closure Compiler][closure], [YUIDoc][yui] or [PHPDoc][phpdoc]. Extra help is provided for each of these tags by prefilling the arguments each expects. Pressing `tab` will move the cursor to the next argument.
 
+### Opening your projects JSDoc documentation ###
+
+You probably have your JSDoc documentation sitting somewhere in the project folder on your machine, or somewhere on the server. If so, you'll probably find it useful to being able to open your documentation directly from Sublime. You can either open your local or live documentation and you can even go straight to the documentation page of the currently edited file.
+
+To access the documentation opening feature, simply right click on an file while editing and select 'DocBlockr' and choose one of the options:
+
+- Open live docs
+	- Opens the live (remote URL) documentation index in your web browser
+- Open live docs at file:
+	- Opens the live documentation of the file you are currently editing
+- Open local docs
+	- Opens the local documentation index
+- Open local docs at file:
+	- Opens the local documentation of the file you are currently editing
+
+You can access these commands from the `Tools -> DocBlockr` menu or by using keyboard shortcuts
+
+For help with setting up DocBlockr being able to open your project's JSDOC documentation, see the configuration section below.
+
+Only Supports JSDOC at the moment
+
 ## Configuration ##
 
 You can access the configuration settings by selecting `Preferences -> Package Settings -> DocBlockr`.
@@ -242,6 +263,24 @@ You can access the configuration settings by selecting `Preferences -> Package S
 - `jsdocs_simple_mode` *(Boolean)* If true, DocBlockr won't add a template when creating a doc block before a function or variable. Useful if you don't want to write Javadoc-style, but still want your editor to help when writing block comments. Default: `false`
 
 - `jsdocs_lower_case_primitives` *(Boolean)* If true, primitive data types are added in lower case, eg "number" instead of "Number". Default: `false`
+
+- `jsdocs_live_docs_url` *(String)* The path to the live project documentation. This URL should point to the remote documentation build folder.
+- `jsdocs_local_docs_url` *(String)* The path to the local project documentation's build folder. In Sublime 3 both default and user settings for these two options can be overridden using a project file - letting you open the currently open project's documentation:
+
+		// `project.sublime-project` file
+		{
+			"settings":
+			{
+  				"tab_size": 4,
+  				"jsdocs":
+				{
+					"jsdocs_local_docs_url": "/Users/you/projects/project/docs/jsdoc/build",
+					"jsdocs_live_docs_url": "http://yourproject.com/docs/build"
+				}
+			}
+		}
+
+
 
 This is my first package for Sublime Text, and the first time I've written any Python, so I heartily welcome feedback and [feature requests or bug reports][issues].
 
